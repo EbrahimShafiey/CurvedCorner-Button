@@ -1,0 +1,46 @@
+
+!! NOTE : This style is only working for "Button" in WPF application forms. !! 
+
+in your app.xaml add this part of style :
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+   <Application.Resources>
+     <Style TargetType="FrameworkElement" x:Key="VisibleAnimation">
+  <Setter Property="Visibility" Value="Collapsed"/>
+  <Setter Property="Opacity" Value="10"/>
+  <Setter Property="Height" Value="700"></Setter>
+  <Style.Triggers>
+    <Trigger Property="Visibility" Value="Visible">
+      <Trigger.EnterActions>
+    <BeginStoryboard>
+      <Storyboard>
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0" To="1.0" Duration="0:0:0.5"/>
+       </Storyboard>
+     </BeginStoryboard>
+   </Trigger.EnterActions>
+   </Trigger>
+ </Style.Triggers>
+</Style>
+
+    <Style TargetType="Button" x:Key="BTNCORNER">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="7,7,7,7" Background="White"    BorderBrush="#ccc" BorderThickness="1,1,1,1" >
+                        <ContentPresenter x:Name="contentPresenter"   ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding  Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding  VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    </Application.Resources>
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ then go to your button xaml code
+
+                    <Button x:Name="loginButton"  Style="{StaticResource BTNCORNER}"   Margin="50,20,20,20"  Click="loginButton_Click" FontSize="20" Width="93" Height="42"  />
+
